@@ -12,7 +12,7 @@ nltk.download('wordnet')
 nltk.download('stopwords')
 
 # Fetch data from data/raw
-def fetch_data(train_path='./emotions_detector/data/raw/train.csv', test_path='./emotions_detector/data/raw/test.csv'):
+def fetch_data(train_path='./data/raw/train.csv', test_path='./data/raw/test.csv'):
     try:
         train_data = pd.read_csv(train_path)
         test_data = pd.read_csv(test_path)
@@ -106,7 +106,7 @@ def transform_data(df):
         raise Exception(f"Error during data transformation: {e}")
 
 # Data Storing function
-def store_data(train_df, test_df, save_dir='emotions_detector/data/processed'):
+def store_data(train_df, test_df, save_dir='data/processed'):
     try:
         os.makedirs(save_dir, exist_ok=True)
         train_df.to_csv(os.path.join(save_dir, 'train_processed.csv'), index=False)
@@ -121,7 +121,7 @@ def main():
         train_processed = transform_data(train_data)
         test_processed = transform_data(test_data)
 
-        save_dir = 'emotions_detector/data/processed'
+        save_dir = 'data/processed'
         store_data(train_processed, test_processed, save_dir)
 
         print("Data processing completed successfully.")

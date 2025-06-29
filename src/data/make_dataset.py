@@ -129,7 +129,7 @@ def main() -> None:
         logger.info(f"Data split successfully: train_size={len(train_data)}, test_size={len(test_data)}")
 
         # Save data
-        data_path = os.path.join("emotions_detector/data", "raw")
+        data_path = os.path.join("data", "raw")
         save_data(data_path, train_data, test_data)
 
         logger.info("Data ingestion completed successfully.")
