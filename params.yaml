@@ -1,0 +1,9 @@
+make_dataset:
+  test_size : 0.2
+
+build_features:
+  max_features : 100
+
+train_model:
+  n_estimators : 100
+  learning_rate : 0.1
