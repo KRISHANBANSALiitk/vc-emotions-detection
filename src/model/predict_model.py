@@ -16,7 +16,7 @@ def load_model(model_path='model.pkl'):
         raise Exception(f"Error while loading the model: {e}")
 
 # Load test data
-def load_test_data(test_data_path='./data/features/test_bow.csv'):
+def load_test_data(test_data_path='./data/features/test_tfidf.csv'):
     try:
         test_data = pd.read_csv(test_data_path)
         if test_data.shape[1] < 2:

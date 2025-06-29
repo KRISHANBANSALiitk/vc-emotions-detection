@@ -21,7 +21,7 @@ def load_params(params_path):
         raise Exception(f"Error while loading parameters: {e}")
 
 # Fetch the data from data/features
-def fetch_data(train_path='./data/features/train_bow.csv'):
+def fetch_data(train_path='./data/features/train_tfidf.csv'):
     try:
         train_data = pd.read_csv(train_path)
 

@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import yaml
 import os
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Load parameters from YAML
 def load_params(params_path):
@@ -32,7 +32,7 @@ def fetch_data(train_path='./data/processed/train_processed.csv', test_path='./d
         raise Exception(f"Error while fetching data: {e}")
 
 # Apply Bag of Words on X
-def bow(train_data, test_data, max_features):
+def tfidf(train_data, test_data, max_features):
     try:
         if 'content' not in train_data.columns or 'content' not in test_data.columns:
             raise KeyError("The 'content' column is missing in one of the datasets.")
@@ -48,7 +48,7 @@ def bow(train_data, test_data, max_features):
         X_test = test_data['content'].values
         y_test = test_data['sentiment'].values
 
-        vectorizer = CountVectorizer(max_features=max_features)
+        vectorizer = TfidfVectorizer(max_features=max_features)
 
         X_train_bow = vectorizer.fit_transform(X_train)
         X_test_bow = vectorizer.transform(X_test)
@@ -68,8 +68,8 @@ def bow(train_data, test_data, max_features):
 def store_data(train_df, test_df, save_dir='data/features'):
     try:
         os.makedirs(save_dir, exist_ok=True)
-        train_df.to_csv(os.path.join(save_dir, 'train_bow.csv'), index=False)
-        test_df.to_csv(os.path.join(save_dir, 'test_bow.csv'), index=False)
+        train_df.to_csv(os.path.join(save_dir, 'train_tfidf.csv'), index=False)
+        test_df.to_csv(os.path.join(save_dir, 'test_tfidf.csv'), index=False)
     except Exception as e:
         raise Exception(f"Error while storing data: {e}")
 
@@ -78,7 +78,7 @@ def main():
     try:
         max_features = load_params('params.yaml')
         train_data, test_data = fetch_data()
-        train_df, test_df = bow(train_data, test_data, max_features)
+        train_df, test_df = tfidf(train_data, test_data, max_features)
 
         save_dir = 'data/features'
         store_data(train_df, test_df, save_dir)
